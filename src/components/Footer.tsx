@@ -1,5 +1,5 @@
-
 import { Phone, Mail, Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
               <span className="text-white font-bold text-2xl">line</span>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
-              Human Connection. Global Reach. Professional voice support services tailored to the insurance industry.
+              Human Connection. Global Reach. Professional voice support services tailored to your industry.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
@@ -54,7 +54,7 @@ const Footer = () => {
                 <li><a href="#" className="text-gray-400 hover:text-redline transition-colors">Blog</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-redline transition-colors">Case Studies</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-redline transition-colors">FAQ</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-redline transition-colors">Privacy Policy</a></li>
+                <li><Link to="/privacy-policy" className="text-gray-400 hover:text-redline transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>
@@ -66,7 +66,7 @@ const Footer = () => {
           </p>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-400 hover:text-redline text-sm transition-colors">Terms of Service</a>
-            <a href="#" className="text-gray-400 hover:text-redline text-sm transition-colors">Privacy Policy</a>
+            <Link to="/privacy-policy" className="text-gray-400 hover:text-redline text-sm transition-colors">Privacy Policy</Link>
             <a href="#" className="text-gray-400 hover:text-redline text-sm transition-colors">Cookie Policy</a>
           </div>
         </div>

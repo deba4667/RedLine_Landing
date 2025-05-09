@@ -1,19 +1,18 @@
-
 import { CheckCircle } from "lucide-react";
 
 const WhyChooseUs = () => {
   const reasons = [
     {
-      title: "Agents Trained in Insurance Call Handling",
-      description: "Our team is specifically trained to handle insurance-related calls with expertise and knowledge."
+      title: "Expertly Trained Call Handlers",
+      description: "Our team is specifically trained to handle calls with expertise and knowledge."
     },
     {
       title: "Professional, Accent-Neutral Support Staff",
       description: "Clear communication that puts your customers at ease and represents your brand professionally."
     },
     {
-      title: "Compliance-Aware Communication Style",
-      description: "All conversations follow industry regulations and compliance standards for insurance communications."
+      title: "Compliant Communication",
+      description: "All conversations follow industry regulations and compliance standards."
     },
     {
       title: "US/UK Timezone Coverage",
@@ -34,10 +33,10 @@ const WhyChooseUs = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Insurance Companies Choose Redline
+            Why Companies Choose Redline
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Our unique approach to voice support delivers measurable results for insurance businesses.
+            Our unique approach to voice support delivers measurable results for businesses.
           </p>
         </div>
 

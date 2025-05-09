@@ -1,4 +1,3 @@
-
 import { Phone, Users, UserCheck, Clock, MessageSquare, Heart } from "lucide-react";
 
 const ServiceCard = ({ 
@@ -63,7 +62,7 @@ const ServicesSection = () => {
             Our Voice Support Services
           </h2>
           <p className="text-lg text-blueline-light max-w-2xl mx-auto">
-            We help insurance companies deliver exceptional customer experiences through our specialized voice support solutions.
+            We help companies deliver exceptional customer experiences through our specialized voice support solutions.
           </p>
         </div>
 

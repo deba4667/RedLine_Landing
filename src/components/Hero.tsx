@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -31,7 +30,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              Professional voice support services tailored to the insurance industry, enhancing client experience while reducing operational burden.
+              Professional voice support services tailored to your industry, enhancing client experience while reducing operational burden.
             </motion.p>
             <motion.div 
               className="flex flex-col sm:flex-row gap-4"

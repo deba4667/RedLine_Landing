@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 
 const FreeTrial = () => {
@@ -53,7 +52,7 @@ const FreeTrial = () => {
                   "The ROI on Redline's services has been exceptional. They've helped us maintain customer satisfaction while reducing our operational costs." 
                 </p>
                 <p className="text-right text-sm font-medium text-blueline-dark mt-2">
-                  — Insurance Industry Client
+                  — Industry Client
                 </p>
               </div>
             </div>
