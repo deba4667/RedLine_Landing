@@ -1,7 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -41,7 +41,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img 
                 src="/lovable-uploads/9136287d-1cf9-42d2-aef8-ac3971f955ad.png" 
                 alt="Redline Logo" 
@@ -51,7 +51,7 @@ const Navbar = () => {
                 <span className="text-redline font-bold text-2xl">Red</span>
                 <span className="text-blueline-dark font-bold text-2xl">line</span>
               </div>
-            </a>
+            </Link>
           </motion.div>
           
           {/* Desktop Navigation */}
@@ -63,6 +63,13 @@ const Navbar = () => {
                 className="text-blueline-dark hover:text-redline font-medium transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById(item.toLowerCase().replace(/\s+/g, '-'));
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 {item}
               </motion.a>
@@ -73,9 +80,11 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Button variant="default" className="bg-redline hover:bg-redline-dark">
-              Get Started
-            </Button>
+            <Link to="/try-redline">
+              <Button variant="default" className="bg-redline hover:bg-redline-dark">
+                Get Started
+              </Button>
+            </Link>
           </motion.div>
           
           {/* Mobile Menu Button */}
@@ -102,11 +111,25 @@ const Navbar = () => {
                 key={index}
                 href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} 
                 className="text-blueline-dark hover:text-redline font-medium transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById(item.toLowerCase().replace(/\s+/g, '-'));
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                  setMobileMenuOpen(false);
+                }}
               >
                 {item}
               </a>
             ))}
+            <Link 
+              to="/try-redline"
+              className="text-blueline-dark hover:text-redline font-medium transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Get Started
+            </Link>
           </motion.nav>
         )}
       </div>

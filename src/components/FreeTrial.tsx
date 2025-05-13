@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const FreeTrial = () => {
   return (
-    <section id="trial" className="section-padding bg-gray-50">
+    <section id="free-trial" className="section-padding bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center">

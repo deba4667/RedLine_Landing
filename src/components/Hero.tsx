@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -42,19 +43,21 @@ const Hero = () => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <Button 
-                  size="lg" 
-                  className="bg-redline hover:bg-redline-dark group"
-                >
-                  Try For Free
-                  <motion.span
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                    className="ml-2"
+                <Link to="/try-redline">
+                  <Button 
+                    size="lg" 
+                    className="bg-redline hover:bg-redline-dark group"
                   >
-                    <ArrowRight className="h-4 w-4" />
-                  </motion.span>
-                </Button>
+                    Try For Free
+                    <motion.span
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      className="ml-2"
+                    >
+                      <ArrowRight className="h-4 w-4" />
+                    </motion.span>
+                  </Button>
+                </Link>
               </motion.div>
               
               <motion.div
