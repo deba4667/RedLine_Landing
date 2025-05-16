@@ -15,7 +15,7 @@ const Footer = () => {
               Human Connection. Global Reach. Professional voice support services tailored to your industry.
             </p>
             <div className="flex space-x-4">
-              <a href="tel:+919787059590" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="tel:+19787059590" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <Phone className="h-4 w-4" />
               </a>
               <a href="mailto:contact@redlineoutsourcing.com" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
