@@ -23,8 +23,8 @@ const WhyChooseUs = () => {
       description: "Complete transparency with detailed reporting and quality assurance to maintain high standards."
     },
     {
-      title: "Affordable Plans Starting at $8/hr",
-      description: "Cost-effective solutions with plans starting at just $8/hr or $1,200/month per agent."
+      title: "Affordable Plans ",
+      description: "Cost-effective solutions tailored to fit your needs, offering flexible pricing options to suit different business requirements."
     },
   ];
 

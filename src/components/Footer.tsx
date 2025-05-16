@@ -18,10 +18,10 @@ const Footer = () => {
               <a href="tel:+919787059590" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <Phone className="h-4 w-4" />
               </a>
-              <a href="#" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="mailto:contact@redlineoutsourcing.com" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <Mail className="h-4 w-4" />
               </a>
-              <a href="#" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="https://www.linkedin.com/company/redline-outsourcing-solution/" className="bg-white/10 hover:bg-redline h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <Linkedin className="h-4 w-4" />
               </a>
             </div>

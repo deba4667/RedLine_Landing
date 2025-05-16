@@ -48,10 +48,10 @@ const Careers = () => {
                 <div className="flex items-center space-x-4">
                   <Mail className="h-6 w-6 text-redline" />
                   <a 
-                    href="mailto:redlineoutsourcing@gmail.com" 
+                    href="mailto:contact@redlineoutsourcing.com" 
                     className="text-blueline-dark hover:text-redline transition-colors"
                   >
-                    redlineoutsourcing@gmail.com
+                    contact@redlineoutsourcing.com
                   </a>
                 </div>
                 <p className="text-blueline-light mt-4">

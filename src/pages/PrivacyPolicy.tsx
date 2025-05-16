@@ -66,8 +66,8 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold text-blueline-dark mb-4">5. Your Rights</h2>
               <p className="text-blueline-light mb-8">
                 You may request to access, correct, or delete your personal data by contacting us at 
-                <a href="mailto:redlineoutsourcing@gmail.com" className="text-redline hover:text-redline-dark ml-1">
-                  redlineoutsourcing@gmail.com
+                <a href="mailto:contact@redlineoutsourcing.com" className="text-redline hover:text-redline-dark ml-1">
+                  contact@redlineoutsourcing.com
                 </a>.
               </p>
 
@@ -86,8 +86,8 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold text-blueline-dark mb-4">8. Contact Us</h2>
               <p className="text-blueline-light mb-8">
                 For any questions or concerns about this policy, contact us at:
-                <a href="mailto:redlineoutsourcing@gmail.com" className="text-redline hover:text-redline-dark ml-1">
-                  redlineoutsourcing@gmail.com
+                <a href="mailto:contact@redlineoutsourcing.com" className="text-redline hover:text-redline-dark ml-1">
+                  contact@redlineoutsourcing.com
                 </a>
               </p>
             </div>

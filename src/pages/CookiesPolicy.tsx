@@ -81,8 +81,8 @@ const CookiesPolicy = () => {
                   <h2 className="text-2xl font-semibold text-blueline-dark mb-4">6. Contact</h2>
                   <p className="text-blueline-light">
                     If you have questions about our cookies or privacy practices, contact:
-                    <a href="mailto:redlineoutsourcing@gmail.com" className="text-redline hover:text-redline-dark ml-1">
-                      redlineoutsourcing@gmail.com
+                    <a href="mailto:contact@redlineoutsourcing.com" className="text-redline hover:text-redline-dark ml-1">
+                      contact@redlineoutsourcing.com
                     </a>
                   </p>
                 </section>

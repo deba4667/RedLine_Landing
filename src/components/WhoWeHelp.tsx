@@ -20,9 +20,9 @@ const WhoWeHelp = () => {
           
           <div className="md:w-1/2">
             <h2 className="text-3xl md:text-4xl font-bold text-blueline-dark mb-6">Who We Help</h2>
-            <p className="text-lg text-blueline-light mb-6">
-              We work with businesses who want to enhance client experience while reducing operational burden.
-            </p>
+            {/* <p className="text-lg text-blueline-light mb-6">
+              We work with businesses who want to enhance client experience while reducing operational .
+            </p> */}
             <p className="text-lg text-blueline-light mb-8">
               Redline delivers reliable voice support tailored to your industry, helping you focus on core business activities while ensuring excellent customer service.
             </p>
