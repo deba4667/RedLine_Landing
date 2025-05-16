@@ -4,6 +4,13 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
+  const scrollToFreeTrial = () => {
+    const element = document.getElementById('free-trial');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
@@ -43,21 +50,20 @@ const Hero = () => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                <Link to="/try-redline">
-                  <Button 
-                    size="lg" 
-                    className="bg-redline hover:bg-redline-dark group"
+                <Button 
+                  size="lg" 
+                  className="bg-redline hover:bg-redline-dark group"
+                  onClick={scrollToFreeTrial}
+                >
+                  Try For Free
+                  <motion.span
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                    className="ml-2"
                   >
-                    Try For Free
-                    <motion.span
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                      className="ml-2"
-                    >
-                      <ArrowRight className="h-4 w-4" />
-                    </motion.span>
-                  </Button>
-                </Link>
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.span>
+                </Button>
               </motion.div>
               
               <motion.div

@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 
 const FreeTrial = () => {
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="free-trial" className="section-padding bg-gray-50 flex items-center justify-center min-h-screen">
       <div className="bg-white rounded-2xl shadow-xl p-8 md:p-16 max-w-2xl w-full mx-auto flex flex-col items-center text-center">
@@ -30,6 +37,7 @@ const FreeTrial = () => {
         <Button 
           size="lg" 
           className="w-full md:w-auto bg-redline hover:bg-redline-dark text-lg px-8 py-6 h-auto"
+          onClick={scrollToContact}
         >
           Start Your Free Trial
         </Button>
