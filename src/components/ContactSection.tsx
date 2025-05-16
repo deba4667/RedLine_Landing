@@ -16,7 +16,80 @@ const ContactSection = () => {
     message: '',
     consent: false
   });
+  const [errors, setErrors] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    message: '',
+    consent: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {
+      name: '',
+      company: '',
+      email: '',
+      phone: '',
+      message: '',
+      consent: ''
+    };
+    let isValid = true;
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+      isValid = false;
+    } else if (formData.name.length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+      isValid = false;
+    }
+
+    // Company validation
+    if (!formData.company.trim()) {
+      newErrors.company = 'Company name is required';
+      isValid = false;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+      isValid = false;
+    }
+
+    // Phone validation
+    const phoneRegex = /^\+?[\d\s-]{10,}$/;
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+      isValid = false;
+    } else if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
+      isValid = false;
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+      isValid = false;
+    } else if (formData.message.length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+      isValid = false;
+    }
+
+    // Consent validation
+    if (!formData.consent) {
+      newErrors.consent = 'Please agree to receive communications';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -24,13 +97,17 @@ const ContactSection = () => {
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
+    // Clear error when user starts typing
+    setErrors(prev => ({
+      ...prev,
+      [name]: ''
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.consent) {
-      toast.error('Please agree to receive communications');
+    if (!validateForm()) {
       return;
     }
 
@@ -38,8 +115,8 @@ const ContactSection = () => {
 
     try {
       await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID, // Replace with your EmailJS service ID
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // Replace with your EmailJS template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           from_name: formData.name,
           company: formData.company,
@@ -47,7 +124,7 @@ const ContactSection = () => {
           phone: formData.phone,
           message: formData.message,
           to_name: 'Redline Team',
-          reply_to: formData.email // This ensures replies go to the customer
+          reply_to: formData.email
         }
       );
 
@@ -59,6 +136,14 @@ const ContactSection = () => {
         phone: '',
         message: '',
         consent: false
+      });
+      setErrors({
+        name: '',
+        company: '',
+        email: '',
+        phone: '',
+        message: '',
+        consent: ''
       });
     } catch (error) {
       toast.error('Failed to send message. Please try again or contact us directly.');
@@ -148,9 +233,10 @@ const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-redline focus:border-redline outline-none transition"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-200'} focus:ring-2 focus:ring-redline focus:border-redline outline-none transition`}
                     placeholder="Your name"
                   />
+                  {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="company" className="block text-sm font-medium text-blueline-dark mb-1">
@@ -163,9 +249,10 @@ const ContactSection = () => {
                     value={formData.company}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-redline focus:border-redline outline-none transition"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.company ? 'border-red-500' : 'border-gray-200'} focus:ring-2 focus:ring-redline focus:border-redline outline-none transition`}
                     placeholder="Your company"
                   />
+                  {errors.company && <p className="mt-1 text-sm text-red-500">{errors.company}</p>}
                 </div>
               </div>
               
@@ -181,9 +268,10 @@ const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-redline focus:border-redline outline-none transition"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:ring-2 focus:ring-redline focus:border-redline outline-none transition`}
                     placeholder="Your email"
                   />
+                  {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-blueline-dark mb-1">
@@ -196,9 +284,10 @@ const ContactSection = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-redline focus:border-redline outline-none transition"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:ring-2 focus:ring-redline focus:border-redline outline-none transition`}
                     placeholder="Your phone number"
                   />
+                  {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
                 </div>
               </div>
               
@@ -213,9 +302,10 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-redline focus:border-redline outline-none transition"
+                  className={`w-full px-4 py-3 rounded-lg border ${errors.message ? 'border-red-500' : 'border-gray-200'} focus:ring-2 focus:ring-redline focus:border-redline outline-none transition`}
                   placeholder="How can we help you?"
                 ></textarea>
+                {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
               </div>
               
               <div className="flex items-center">
@@ -225,11 +315,12 @@ const ContactSection = () => {
                   name="consent"
                   checked={formData.consent}
                   onChange={handleChange}
-                  className="h-4 w-4 text-redline focus:ring-redline border-gray-300 rounded"
+                  className={`h-4 w-4 text-redline focus:ring-redline border-gray-300 rounded ${errors.consent ? 'border-red-500' : ''}`}
                 />
                 <label htmlFor="consent" className="ml-2 block text-sm text-blueline-light">
                   I agree to receive communications from Redline Outsourcing Solution.
                 </label>
+                {errors.consent && <p className="mt-1 text-sm text-red-500">{errors.consent}</p>}
               </div>
               
               <Button 
