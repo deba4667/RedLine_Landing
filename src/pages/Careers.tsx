@@ -40,7 +40,7 @@ const Careers = () => {
               </p>
 
               <p className="text-blueline-light text-lg">
-                Join us to make a difference — one call at a time.
+                Join us to make a difference one call at a time.
               </p>
 
               <div className="bg-gray-50 p-8 rounded-xl">

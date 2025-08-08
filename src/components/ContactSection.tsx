@@ -3,6 +3,7 @@ import { Phone, Mail, Linkedin } from "lucide-react";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 import { toast } from "react-hot-toast";
+import MapComponent from "./MapComponent";
 
 // Initialize EmailJS
 emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY); // Replace with your EmailJS public key
@@ -203,6 +204,10 @@ const ContactSection = () => {
                     <p className="font-medium text-blueline-dark">Redline Outsourcing Solution</p>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-8">
+                <MapComponent />
               </div>
 
               <div className="mt-10 p-6 bg-white rounded-lg border border-gray-100">

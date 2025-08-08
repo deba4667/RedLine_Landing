@@ -29,17 +29,17 @@ const AboutUs = () => {
             
             <div className="space-y-8">
               <p className="text-blueline-light text-lg">
-                At Redline Outsourcing Solution, we're more than just a voice support provider — we're the human
+                At Redline Outsourcing Solution, we're more than just a voice support provider.We're the human
                 connection behind every customer conversation.
               </p>
 
               <p className="text-blueline-light text-lg">
-                Founded with a mission to deliver empathetic, reliable, and industry-focused support, Redline
+                Founded with a mission to deliver empathetic, reliable, and industry focused support, Redline
                 specializes in serving insurance, pension, and healthcare companies that value clarity, care, and trust.
               </p>
 
               <p className="text-blueline-light text-lg">
-                Our team of trained voice agents understands that every call isn't just a task — it's an opportunity to
+                Our team of trained voice agents understands that every call isn't just a task it's an opportunity to
                 reassure, resolve, and retain.
               </p>
 
@@ -50,7 +50,7 @@ const AboutUs = () => {
 
               <p className="text-blueline-light text-lg">
                 Backed by operational excellence, deep domain experience, and a commitment to integrity, Redline
-                is built to scale with your business — whether you're navigating complex claims, guiding
+                is built to scale with your business whether you're navigating complex claims, guiding
                 beneficiaries, or offering plan support.
               </p>
 
@@ -82,7 +82,7 @@ const AboutUs = () => {
               </div>
 
               <p className="text-blueline-light text-lg italic">
-                Let's build something lasting — one call at a time.
+                Let's build something lasting one call at a time.
               </p>
             </div>
           </motion.div>
