@@ -49,10 +49,10 @@ The website is hosted on **[Vercel](https://vercel.com)** — a cloud-based plat
 
 Since this is hosted on **Vercel (cloud)**, there is no traditional server to manage. Account access is needed for:
 
-| Service | What to hand over |
+| Service | How to transfer |
 |---|---|
-| **Vercel** | Access to the Vercel team/account that owns the project (email login or team invite) |
-| **GitHub** | Access to the GitHub repository that is connected to Vercel |
+| **Vercel** | Need to create a new vercel deployment and connect it to the github repo |
+| **GitHub** | Access to the GitHub repository will be given via transfer of ownership|
 | **GoDaddy** | Login credentials / delegate access to the domain account |
 
 ---
