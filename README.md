@@ -88,7 +88,7 @@ Custom domain (GoDaddy) points to Vercel via DNS records
 
 **When a code change is made:**
 
-1. Developer edits code locally in `d:\freelance\RedLine_Landing`
+1. Developer edits code
 2. Commits and pushes:
    ```sh
    git add .
@@ -115,7 +115,7 @@ Custom domain (GoDaddy) points to Vercel via DNS records
 
 ## 7. 📁 Codebase Access
 
-**Full codebase is available at:** `d:\freelance\RedLine_Landing` (local copy)
+**Full codebase is available at:** `https://github.com/deba4667/RedLine_Landing.git`
 
 To grant complete access:
 - **GitHub Repository:** Share the GitHub repo URL + add collaborators/transfer ownership
