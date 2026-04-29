@@ -5,28 +5,72 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full bg-[#C8102E] pt-16 overflow-hidden"
+      className="relative w-full pt-16"
+      style={{ background: '#C8102E', minHeight: '340px' }}
     >
-      {/* Full-bleed flex row */}
-      <div className="flex items-stretch" style={{ minHeight: '340px' }}>
+      {/* Wrapper clips everything */}
+      <div className="relative w-full overflow-hidden" style={{ minHeight: '340px' }}>
 
-        {/* Left: Text — constrained to ~55% width */}
+        {/* Gray image panel — full height, pinned right */}
         <div
-          className="flex flex-col justify-center py-10 z-10"
-          style={{ width: '55%', paddingLeft: 'max(24px, calc((100vw - 1280px)/2 + 56px))', paddingRight: '40px' }}
+          className="absolute top-0 bottom-0 right-0 hidden md:block bg-gray-200"
+          style={{ width: '45%' }}
+        >
+          {/* Arc mask: curved left edge via SVG inset */}
+          <svg
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            {/* Mask that reveals only the right portion with curved left edge */}
+            <defs>
+              <mask id="arcMask">
+                <rect width="100" height="100" fill="black" />
+                <path d="M15,0 Q2,50 15,100 L100,100 L100,0 Z" fill="white" />
+              </mask>
+            </defs>
+            <rect width="100" height="100" fill="#e5e7eb" mask="url(#arcMask)" />
+          </svg>
+
+          {/* Placeholder content — also clipped by the same mask shape */}
+          <div
+            className="absolute inset-0 flex flex-col items-center justify-center"
+            style={{
+              clipPath: 'path("M15% 0%, 2% 50%, 15% 100%, 100% 100%, 100% 0%")',
+            }}
+          >
+            <div className="ml-8 flex flex-col items-center">
+              <div className="w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center mb-2">
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <span className="text-gray-400 text-sm font-medium">Image Placeholder</span>
+              <span className="text-gray-300 text-xs mt-0.5">Replace with office photo</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Left: Text content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 flex flex-col justify-center py-10 px-6 md:px-10 lg:px-16"
+          style={{ maxWidth: '60%', minHeight: '340px' }}
         >
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1 }}
             className="font-heading font-black text-white leading-tight mb-3"
-            style={{ fontSize: 'clamp(26px, 3.5vw, 50px)' }}
+            style={{ fontSize: 'clamp(28px, 3.5vw, 52px)' }}
           >
             Revenue Cycle Management
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-white font-semibold text-sm md:text-base mb-4"
@@ -35,11 +79,11 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-2"
-            style={{ maxWidth: '480px' }}
+            style={{ maxWidth: '460px' }}
           >
             <p className="text-white/85 text-xs md:text-sm leading-relaxed">
               Redline Outsourcing Solutions is a dynamic Business Process Outsourcing firm
@@ -52,48 +96,6 @@ export default function Hero() {
               We operate as a seamless extension of your team.
             </p>
           </motion.div>
-        </div>
-
-        {/* Right: Placeholder image — 45% width, arc clip on left */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.65, delay: 0.25 }}
-          className="hidden md:block flex-1 relative"
-          style={{ clipPath: 'ellipse(100% 100% at 100% 50%)' }}
-        >
-          {/* Arc shape on left using SVG clip */}
-          <svg
-            className="absolute inset-0 w-full h-full"
-            viewBox="0 0 560 340"
-            preserveAspectRatio="none"
-            style={{ zIndex: 0 }}
-          >
-            <defs>
-              <clipPath id="heroArc">
-                <path d="M80,0 Q20,170 80,340 L560,340 L560,0 Z" />
-              </clipPath>
-            </defs>
-            <rect
-              x="0" y="0" width="560" height="340"
-              fill="#e5e7eb"
-              clipPath="url(#heroArc)"
-            />
-          </svg>
-
-          {/* Actual placeholder content on top */}
-          <div
-            className="absolute inset-0 flex flex-col items-center justify-center"
-            style={{ clipPath: 'path("M80,0 Q20,170 80,340 L560,340 L560,0 Z")' }}
-          >
-            <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mb-3">
-              <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <span className="text-gray-400 text-sm font-medium">Image Placeholder</span>
-            <span className="text-gray-300 text-xs mt-1">Replace with office photo</span>
-          </div>
         </motion.div>
       </div>
     </section>
