@@ -56,14 +56,14 @@ export default function RevenueChallenge() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section id="services" className="py-16 bg-white overflow-hidden" ref={ref}>
+    <section id="services" className="py-20 bg-white overflow-visible" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
 
           {/* ── LEFT: Circle diagram ── */}
           <div
             className="relative flex-shrink-0 flex items-center justify-center"
-            style={{ width: '420px', height: '480px' }}
+            style={{ width: '460px', height: '520px' }}
           >
             {/* Large dashed circle ring */}
             <motion.div

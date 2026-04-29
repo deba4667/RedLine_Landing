@@ -8,7 +8,7 @@ export default function Hero() {
       className="relative w-full overflow-hidden bg-[#C8102E] pt-16"
       style={{ minHeight: '340px' }}
     >
-      <div className="max-w-7xl mx-auto flex items-stretch" style={{ minHeight: '320px' }}>
+      <div className="max-w-7xl mx-auto flex items-stretch w-full" style={{ minHeight: '320px' }}>
         {/* Left: Text Content */}
         <div className="flex-1 flex flex-col justify-center px-6 md:px-10 lg:px-14 py-10 pr-4">
           <motion.h1
@@ -54,19 +54,15 @@ export default function Hero() {
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.65, delay: 0.25 }}
-          className="hidden md:flex flex-shrink-0 items-stretch relative"
-          style={{ width: '42%', maxWidth: '520px' }}
+          className="hidden md:flex flex-shrink-0 items-stretch relative overflow-hidden"
+          style={{ width: '44%', maxWidth: '560px' }}
         >
           {/* SVG clip path for the curved left edge */}
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id="heroImageClip" clipPathUnits="objectBoundingBox">
-                {/*
-                  Left edge curves inward (arc toward right),
-                  right edge is straight.
-                  Points: top-left has an inward arc, top-right straight, bottom-right straight, bottom-left arc
-                */}
-                <path d="M0.18,0 Q0,0.5 0.18,1 L1,1 L1,0 Z" />
+                {/* Left edge: arc curving inward from left, right edge flush */}
+                <path d="M0.22,0 Q0.02,0.5 0.22,1 L1,1 L1,0 Z" />
               </clipPath>
             </defs>
           </svg>
