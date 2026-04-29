@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, ArrowUp } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Twitter, Youtube, ArrowUp } from 'lucide-react';
 
 const footerLinks = {
   Services: [
@@ -62,7 +62,7 @@ export default function Footer() {
             </div>
             {/* Social */}
             <div className="flex gap-3 mt-6">
-              {[Linkedin, Twitter, Facebook].map((Icon, i) => (
+              {[Linkedin, Twitter, Youtube].map((Icon, i) => (
                 <motion.a
                   key={i}
                   href="#"
