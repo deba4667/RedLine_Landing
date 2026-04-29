@@ -1,178 +1,253 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-// 6 challenges positioned around a circle arc (not full orbit)
-// Matching reference: bubbles at various positions on a large circle, text descriptions on the right side
+// Circle center and radius (within the SVG viewBox 0 0 1000 600)
+const CX = 330;
+const CY = 300;
+const R = 210;
+
+const toRad = (deg) => (deg * Math.PI) / 180;
+
+// Each bubble: angle (degrees from +x axis, counterclockwise = positive), size, label
 const challenges = [
   {
     id: 'high-claim',
+    angle: 148,
+    size: 80,
     label: 'High Claim\nDenial Rates',
     desc: 'Average denial rates of 5–10% leave significant revenue uncollected, straining cash flow.',
-    // angle in degrees: 0 = right, 90 = bottom, 180 = left, 270 = top
-    angle: 150, // upper-left area
-    size: 90,
+    // text anchor position in SVG units (where text box starts)
+    tx: 215,
+    ty: 55,
+    textAnchor: 'start',
+    lineEnd: { x: 215, y: 75 },
   },
   {
-    id: 'slow-reimburse',
+    id: 'slow-reimb',
+    angle: 63,
+    size: 88,
     label: 'Slow\nReimbursement\nCycles',
     desc: 'Manual processes cause delays of 45–90+ days from service to payment, disrupting operations.',
-    angle: 95, // top-center-left
-    size: 100,
+    tx: 495,
+    ty: 90,
+    textAnchor: 'start',
+    lineEnd: { x: 492, y: 115 },
   },
   {
-    id: 'coding-billing',
+    id: 'coding',
+    angle: 8,
+    size: 105,
     label: 'Coding &\nBilling\nErrors',
     desc: 'Incorrect CPT/ICD-10 codes are the #1 cause of claim rejections and compliance risk.',
-    angle: 35, // upper-right
-    size: 110,
+    tx: 640,
+    ty: 230,
+    textAnchor: 'start',
+    lineEnd: { x: 637, y: 260 },
   },
   {
-    id: 'rising-overhead',
+    id: 'rising',
+    angle: -50,
+    size: 83,
     label: 'Rising\nOverhead\nCosts',
     desc: 'In-house billing teams require continuous training, technology investment, and HR overhead.',
-    angle: 355, // right side / nearly 0
-    size: 95,
+    tx: 548,
+    ty: 440,
+    textAnchor: 'start',
+    lineEnd: { x: 545, y: 460 },
   },
   {
-    id: 'complex-payer',
+    id: 'complex',
+    angle: -113,
+    size: 88,
     label: 'Complex\nPayer\nRequirements',
-    desc: 'Each payer has unique rules, failure to comply means rework, delays, and lost revenue.',
-    angle: 305, // lower-right
-    size: 100,
+    desc: 'Each payer has unique rules; failure to comply means rework, delays, and lost revenue.',
+    tx: 160,
+    ty: 535,
+    textAnchor: 'start',
+    lineEnd: { x: 230, y: 533 },
   },
   {
     id: 'hipaa',
+    angle: -155,
+    size: 80,
     label: 'HIPAA\nCompliance\nBurden',
     desc: 'Maintaining data security and regulatory compliance demands dedicated expertise.',
-    angle: 250, // lower-left
-    size: 90,
+    tx: 0,
+    ty: 445,
+    textAnchor: 'start',
+    lineEnd: { x: 100, y: 430 },
   },
 ];
 
-const ORBIT_R = 170; // px radius of the circle
+// Compute x,y for each bubble
+const bubbles = challenges.map((c) => {
+  const rad = toRad(c.angle);
+  return {
+    ...c,
+    bx: CX + R * Math.cos(rad),
+    by: CY - R * Math.sin(rad),
+  };
+});
 
 export default function RevenueChallenge() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section id="services" className="py-20 bg-white overflow-visible" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
+    <section id="services" className="bg-white w-full py-10 overflow-visible" ref={ref}>
+      <div className="relative w-full" style={{ maxWidth: '1100px', margin: '0 auto', height: '600px' }}>
 
-          {/* ── LEFT: Circle diagram ── */}
-          <div
-            className="relative flex-shrink-0 flex items-center justify-center"
-            style={{ width: '460px', height: '520px' }}
-          >
-            {/* Large dashed circle ring */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="absolute rounded-full border border-gray-300"
-              style={{
-                width: ORBIT_R * 2 + 20,
-                height: ORBIT_R * 2 + 20,
-                borderStyle: 'solid',
-                borderWidth: '1px',
-                borderColor: '#d1d5db',
-              }}
+        {/* ── SVG Layer: ring + connector lines ── */}
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1000 600"
+          preserveAspectRatio="xMidYMid meet"
+          style={{ overflow: 'visible' }}
+        >
+          {/* Main circle ring */}
+          <motion.circle
+            cx={CX}
+            cy={CY}
+            r={R}
+            fill="none"
+            stroke="#d1d5db"
+            strokeWidth="1.2"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.2, ease: 'easeInOut' }}
+          />
+
+          {/* Connector lines from each bubble to its text */}
+          {bubbles.map((b, i) => (
+            <motion.line
+              key={b.id + '-line'}
+              x1={b.bx}
+              y1={b.by}
+              x2={b.lineEnd.x}
+              y2={b.lineEnd.y}
+              stroke="#9ca3af"
+              strokeWidth="0.8"
+              strokeDasharray="4 3"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.4, delay: 0.7 + i * 0.1 }}
             />
+          ))}
 
-            {/* Center text "Revenue Cycle Challenge" */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="absolute z-10 text-center"
-              style={{ width: '150px' }}
-            >
-              <p className="font-heading font-black text-gray-900 leading-tight"
-                style={{ fontSize: '22px' }}>
-                Revenue Cycle<br />
-                <span className="text-gray-900">Challenge</span>
-              </p>
-            </motion.div>
-
-            {/* Bubbles around the circle */}
-            {challenges.map((item, i) => {
-              const rad = (item.angle * Math.PI) / 180;
-              const x = Math.cos(rad) * ORBIT_R;
-              const y = -Math.sin(rad) * ORBIT_R; // negative because CSS y goes down
-
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                  animate={isInView ? { opacity: 1, scale: 1, x, y } : {}}
-                  transition={{ duration: 0.55, delay: 0.4 + i * 0.1, type: 'spring', stiffness: 90 }}
-                  whileHover={{ scale: 1.1, zIndex: 20 }}
-                  className="absolute group cursor-pointer"
-                  style={{
-                    width: item.size,
-                    height: item.size,
-                    transform: `translate(${x}px, ${y}px)`,
-                  }}
-                >
-                  <div
-                    className="w-full h-full rounded-full flex items-center justify-center text-center shadow-lg transition-all duration-300 group-hover:shadow-red-400/50 group-hover:shadow-xl"
-                    style={{
-                      background: 'radial-gradient(circle at 35% 35%, #E03050, #9B0E24)',
-                    }}
-                  >
-                    <span className="text-white font-bold leading-tight px-2 whitespace-pre-line"
-                      style={{ fontSize: '10px' }}>
-                      {item.label}
-                    </span>
-                  </div>
-                  {/* Line from bubble center toward circle center */}
-                  <svg
-                    className="absolute top-1/2 left-1/2 pointer-events-none"
-                    style={{
-                      width: ORBIT_R,
-                      height: '2px',
-                      transform: `rotate(${item.angle + 180}deg)`,
-                      transformOrigin: '0 0',
-                      opacity: 0.2,
-                    }}
-                  >
-                    <line x1="0" y1="1" x2={ORBIT_R} y2="1" stroke="#C8102E" strokeWidth="1" />
-                  </svg>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* ── RIGHT: Text descriptions ── */}
-          <div className="flex-1 lg:pl-8 grid grid-cols-1 gap-5">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="font-heading font-black text-gray-900 text-3xl mb-2 lg:hidden"
-            >
-              Revenue Cycle Challenge
-            </motion.h2>
-
-            {challenges.map((item, i) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: 30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.45, delay: 0.3 + i * 0.1 }}
-                whileHover={{ x: 4 }}
-                className="flex items-start gap-3 group cursor-default"
+          {/* Text labels for each bubble — rendered in SVG */}
+          {bubbles.map((b, i) => {
+            const lines = b.desc.split(' ');
+            // chunk desc into ~3 lines of ~5 words each
+            const chunkSize = Math.ceil(lines.length / 3);
+            const chunks = [];
+            for (let j = 0; j < lines.length; j += chunkSize) {
+              chunks.push(lines.slice(j, j + chunkSize).join(' '));
+            }
+            return (
+              <motion.g
+                key={b.id + '-text'}
+                initial={{ opacity: 0, y: 6 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45, delay: 0.8 + i * 0.1 }}
               >
-                {/* Small red dot */}
-                <div className="mt-1.5 w-2.5 h-2.5 rounded-full bg-[#C8102E] flex-shrink-0 group-hover:scale-125 transition-transform duration-200" />
-                <p className="text-gray-600 text-sm leading-relaxed group-hover:text-gray-800 transition-colors duration-200">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                {chunks.map((line, li) => (
+                  <text
+                    key={li}
+                    x={b.tx}
+                    y={b.ty + li * 14}
+                    fontSize="11"
+                    fontFamily="Inter, sans-serif"
+                    fill="#4b5563"
+                    textAnchor={b.textAnchor}
+                    style={{ maxWidth: '130px' }}
+                  >
+                    {line}
+                  </text>
+                ))}
+              </motion.g>
+            );
+          })}
+        </svg>
+
+        {/* ── Center text label ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="absolute flex flex-col items-start justify-center select-none"
+          style={{
+            left: `${((CX - 130) / 1000) * 100}%`,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '220px',
+          }}
+        >
+          <p className="font-heading font-bold text-gray-800 leading-tight" style={{ fontSize: '20px' }}>
+            Revenue Cycle
+          </p>
+          <p className="font-heading font-black text-gray-900 leading-tight" style={{ fontSize: '32px' }}>
+            Challenge
+          </p>
+        </motion.div>
+
+        {/* ── Bubble elements (HTML over SVG) ── */}
+        {bubbles.map((b, i) => {
+          // Convert SVG coords to percentage of container
+          const leftPct = (b.bx / 1000) * 100;
+          const topPct = (b.by / 600) * 100;
+
+          return (
+            <motion.div
+              key={b.id}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{
+                duration: 0.5,
+                delay: 0.4 + i * 0.1,
+                type: 'spring',
+                stiffness: 120,
+                damping: 14,
+              }}
+              whileHover={{
+                scale: 1.14,
+                zIndex: 30,
+                boxShadow: '0 12px 40px rgba(200,16,46,0.45)',
+                transition: { duration: 0.25, type: 'spring', stiffness: 300 },
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="absolute rounded-full flex items-center justify-center text-center cursor-pointer select-none"
+              style={{
+                width: b.size,
+                height: b.size,
+                left: `${leftPct}%`,
+                top: `${topPct}%`,
+                transform: 'translate(-50%, -50%)',
+                background: 'radial-gradient(circle at 35% 30%, #E8304E, #9B0E24)',
+                boxShadow: '0 6px 20px rgba(200,16,46,0.35)',
+                zIndex: 10,
+              }}
+            >
+              <span
+                className="text-white font-bold leading-tight px-2 whitespace-pre-line"
+                style={{ fontSize: '9.5px', lineHeight: '1.3' }}
+              >
+                {b.label}
+              </span>
+
+              {/* Ripple on hover */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{ border: '2px solid rgba(200,16,46,0.4)' }}
+                initial={{ scale: 1, opacity: 0 }}
+                whileHover={{
+                  scale: [1, 1.35, 1.6],
+                  opacity: [0.7, 0.3, 0],
+                  transition: { duration: 0.7, repeat: Infinity },
+                }}
+              />
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
