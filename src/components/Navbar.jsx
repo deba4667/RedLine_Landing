@@ -3,21 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Who We Help', href: '#who-we-help' },
-  { label: 'Why Us', href: '#why-us' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'RCM solution', href: '#solutions' },
+  { label: 'Who we help', href: '#who-we-help' },
+  { label: 'Why choose us', href: '#why-us' },
+  { label: 'Revenue cycle', href: '#revenue-cycle' },
+  { label: 'RCM Challenge', href: '#services' },
+  { label: 'Visions', href: '#visions' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('#home');
+  const [active, setActive] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -31,78 +31,76 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -70, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-black/10'
-          : 'bg-transparent'
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
+        scrolled ? 'shadow-md' : 'shadow-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => handleNavClick('#home')}
+            whileHover={{ scale: 1.03 }}
+            className="flex items-center gap-2.5 cursor-pointer flex-shrink-0"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <div className="w-8 h-8 bg-[#C8102E] rounded flex items-center justify-center">
-              <span className="text-white font-black text-xs">RL</span>
+            {/* Circular logo mark */}
+            <div className="relative w-10 h-10 rounded-full bg-[#C8102E] flex items-center justify-center overflow-hidden border-2 border-[#C8102E]">
+              {/* Inner white circle design */}
+              <div className="absolute w-6 h-6 rounded-full bg-white/20" />
+              <span className="relative text-white font-black text-xs leading-none z-10">RL</span>
             </div>
-            <span className={`font-heading font-bold text-lg transition-colors duration-300 ${
-              scrolled ? 'text-[#C8102E]' : 'text-white'
-            }`}>
-              Redline
-            </span>
+            <div className="flex flex-col leading-none">
+              <span className="font-heading font-black text-[#C8102E] text-base tracking-wide uppercase">
+                REDLINE
+              </span>
+              <span className="text-gray-400 text-[9px] uppercase tracking-widest font-medium">
+                Outsourcing Solution
+              </span>
+            </div>
           </motion.div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <motion.button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ color: '#C8102E' }}
                 whileTap={{ scale: 0.95 }}
-                className={`relative px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
+                className={`relative px-3 py-2 text-[13px] font-medium transition-colors duration-200 rounded ${
                   active === link.href
                     ? 'text-[#C8102E]'
-                    : scrolled
-                    ? 'text-gray-700 hover:text-[#C8102E]'
-                    : 'text-white/90 hover:text-white'
+                    : 'text-gray-600 hover:text-[#C8102E]'
                 }`}
               >
                 {link.label}
                 {active === link.href && (
                   <motion.div
-                    layoutId="activeNav"
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#C8102E] rounded-full"
+                    layoutId="navUnderline"
+                    className="absolute bottom-0.5 left-3 right-3 h-0.5 bg-[#C8102E] rounded-full"
                   />
                 )}
               </motion.button>
             ))}
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 8px 25px rgba(200,16,46,0.4)' }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.04, boxShadow: '0 6px 20px rgba(200,16,46,0.35)' }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => handleNavClick('#contact')}
-              className="ml-4 px-6 py-2.5 bg-[#C8102E] text-white text-sm font-semibold rounded transition-all duration-300 hover:bg-[#9B0E24]"
+              className="ml-3 px-5 py-2 bg-[#C8102E] text-white text-[13px] font-semibold rounded transition-all duration-200 hover:bg-[#9B0E24]"
             >
-              Get Started
+              Contact Us
             </motion.button>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Toggle */}
           <button
-            className="md:hidden p-2"
+            className="lg:hidden p-2 text-gray-700"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? (
-              <X className={scrolled ? 'text-gray-800' : 'text-white'} size={24} />
-            ) : (
-              <Menu className={scrolled ? 'text-gray-800' : 'text-white'} size={24} />
-            )}
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -114,31 +112,27 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white border-t border-gray-100 shadow-xl"
+            transition={{ duration: 0.25 }}
+            className="lg:hidden bg-white border-t border-gray-100"
           >
-            <div className="px-4 py-4 flex flex-col gap-2">
+            <div className="px-4 py-3 flex flex-col gap-1">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.04 }}
                   onClick={() => handleNavClick(link.href)}
-                  className={`text-left px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
-                    active === link.href
-                      ? 'bg-red-50 text-[#C8102E]'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className="text-left px-3 py-2.5 text-sm text-gray-700 hover:text-[#C8102E] hover:bg-red-50 rounded-lg transition-all"
                 >
                   {link.label}
                 </motion.button>
               ))}
               <button
                 onClick={() => handleNavClick('#contact')}
-                className="mt-2 w-full py-3 bg-[#C8102E] text-white font-semibold rounded-lg"
+                className="mt-2 py-2.5 bg-[#C8102E] text-white font-semibold rounded-lg text-sm"
               >
-                Get Started
+                Contact Us
               </button>
             </div>
           </motion.div>
