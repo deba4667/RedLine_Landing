@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --red-primary: #C8102E;
+  --red-dark: #9B0E24;
+  --red-light: #E63950;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #C8102E;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9B0E24;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#C8102E] text-white px-8 py-3 rounded font-semibold transition-all duration-300 hover:bg-[#9B0E24] hover:shadow-lg hover:shadow-red-500/30 hover:-translate-y-0.5 active:scale-95;
+  }
+  .btn-outline {
+    @apply border-2 border-[#C8102E] text-[#C8102E] px-8 py-3 rounded font-semibold transition-all duration-300 hover:bg-[#C8102E] hover:text-white hover:-translate-y-0.5 active:scale-95;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold font-heading text-gray-800;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+  }
+}
+
+/* Orbit animation for revenue cycle */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
+}
+
+@keyframes orbitReverse {
+  from { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
+  to   { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+}
+
+.orbit-item {
+  animation: orbit 20s linear infinite;
+}
+
+/* Glow effects */
+.glow-red {
+  box-shadow: 0 0 20px rgba(200, 16, 46, 0.4);
+}
+
+/* Gradient backgrounds */
+.gradient-red {
+  background: linear-gradient(135deg, #C8102E 0%, #9B0E24 100%);
+}
+
+.gradient-dark-red {
+  background: linear-gradient(135deg, #1a0a0a 0%, #2d1010 50%, #C8102E15 100%);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #C8102E, #E63950);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Ripple effect */
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.ripple::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(200, 16, 46, 0.3);
+  animation: ripple 2s ease-out infinite;
+}
+
+/* Connector line animation */
+@keyframes dashMove {
+  to { stroke-dashoffset: -100; }
+}
