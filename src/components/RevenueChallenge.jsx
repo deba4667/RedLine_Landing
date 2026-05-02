@@ -3,43 +3,45 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 
 const CIRCLE_SIZE = 100; // all bubbles same size
 const ORBIT_R = 190;
+const MOBILE_CIRCLE_SIZE = 90;
+const MOBILE_ORBIT_R = 140;
 
 const challenges = [
   {
     id: 'high-claim',
     label: 'High Claim\nDenial Rates',
     desc: 'Average denial rates of 5–10% leave significant revenue uncollected, straining cash flow.',
-    angle: 150,
+    angle: 0,
   },
   {
     id: 'slow-reimburse',
     label: 'Slow\nReimbursement\nCycles',
     desc: 'Manual processes cause delays of 45–90+ days from service to payment, disrupting operations.',
-    angle: 95,
+    angle: 60,
   },
   {
     id: 'coding-billing',
     label: 'Coding &\nBilling\nErrors',
     desc: 'Incorrect CPT/ICD-10 codes are the #1 cause of claim rejections and compliance risk.',
-    angle: 35,
+    angle: 120,
   },
   {
     id: 'rising-overhead',
     label: 'Rising\nOverhead\nCosts',
     desc: 'In-house billing teams require continuous training, technology investment, and HR overhead.',
-    angle: 345,
+    angle: 180,
   },
   {
     id: 'complex-payer',
     label: 'Complex\nPayer\nRequirements',
     desc: 'Each payer has unique rules, failure to comply means rework, delays, and lost revenue.',
-    angle: 295,
+    angle: 240,
   },
   {
     id: 'hipaa',
     label: 'HIPAA\nCompliance\nBurden',
     desc: 'Maintaining data security and regulatory compliance demands dedicated expertise.',
-    angle: 230,
+    angle: 300,
   },
 ];
 
@@ -47,18 +49,27 @@ export default function RevenueChallenge() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
   const [hoveredId, setHoveredId] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const circleSize = isMobile ? MOBILE_CIRCLE_SIZE : CIRCLE_SIZE;
+  const orbitR = isMobile ? MOBILE_ORBIT_R : ORBIT_R;
 
   const hoveredChallenge = challenges.find((c) => c.id === hoveredId);
 
   return (
-    <section id="services" className="py-20 bg-white overflow-visible" ref={ref}>
+    <section id="services" className="py-20 bg-white overflow-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
 
           {/* ── LEFT: Circle diagram ── */}
           <div
-            className="relative flex-shrink-0 flex items-center justify-center"
-            style={{ width: '500px', height: '560px' }}
+            className="relative flex-shrink-0 flex items-center justify-center w-full lg:w-[500px] h-[400px] lg:h-[560px]"
           >
             {/* Large circle ring */}
             <motion.div
@@ -67,8 +78,8 @@ export default function RevenueChallenge() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="absolute rounded-full"
               style={{
-                width: ORBIT_R * 2 + 20,
-                height: ORBIT_R * 2 + 20,
+                width: orbitR * 2 + 20,
+                height: orbitR * 2 + 20,
                 border: '1px solid #d1d5db',
               }}
             />
@@ -78,8 +89,8 @@ export default function RevenueChallenge() {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="absolute z-10 text-center"
-              style={{ width: '150px' }}
+              className="absolute z-10 text-center px-2"
+              style={{ width: isMobile ? '120px' : '150px' }}
             >
               <p className="font-heading font-black text-gray-900 leading-tight" style={{ fontSize: '22px' }}>
                 Revenue Cycle<br />
@@ -90,8 +101,8 @@ export default function RevenueChallenge() {
             {/* Bubbles */}
             {challenges.map((item, i) => {
               const rad = (item.angle * Math.PI) / 180;
-              const x = Math.cos(rad) * ORBIT_R;
-              const y = -Math.sin(rad) * ORBIT_R;
+              const x = Math.cos(rad) * orbitR;
+              const y = -Math.sin(rad) * orbitR;
               const isHovered = hoveredId === item.id;
 
               return (
@@ -102,8 +113,8 @@ export default function RevenueChallenge() {
                   transition={{ duration: 0.55, delay: 0.4 + i * 0.1, type: 'spring', stiffness: 90 }}
                   className="absolute cursor-pointer"
                   style={{
-                    width: CIRCLE_SIZE,
-                    height: CIRCLE_SIZE,
+                    width: circleSize,
+                    height: circleSize,
                     zIndex: isHovered ? 20 : 10,
                   }}
                   onMouseEnter={() => setHoveredId(item.id)}

@@ -51,7 +51,7 @@ export default function EngagementModel() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section className="relative py-14 md:py-24 bg-gray-900 overflow-hidden" ref={ref}>
+    <section id="engagement-model" className="relative py-14 md:py-24 bg-gray-900 overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 opacity-5"
         style={{

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logoImg from '../assets/logo.png';
 
 const navLinks = [
@@ -9,13 +10,15 @@ const navLinks = [
   { label: 'Why choose us', href: '#why-us' },
   { label: 'Revenue cycle', href: '#revenue-cycle' },
   { label: 'RCM Challenge', href: '#services' },
-  { label: 'Visions', href: '#visions' },
+  { label: 'RCM Compatibility', href: '#engagement-model' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -23,11 +26,33 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname === '/' && location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location]);
+
   const handleNavClick = (href) => {
     setActive(href);
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname !== '/') {
+      navigate(`/${href}`);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      else navigate(`/${href}`); // Update URL hash if element not found just in case
+    }
+  };
+
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -44,7 +69,7 @@ export default function Navbar() {
           <motion.div
             whileHover={{ scale: 1.03 }}
             className="flex items-center cursor-pointer flex-shrink-0"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={handleLogoClick}
           >
             <img
               src={logoImg}
@@ -55,7 +80,7 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-0.5">
-            {navLinks.map((link) => (
+            {location.pathname === '/' && navLinks.map((link) => (
               <motion.button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
@@ -85,13 +110,22 @@ export default function Navbar() {
             </motion.button>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            className="lg:hidden p-2 text-gray-700"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* Mobile Toggle / Button */}
+          {location.pathname === '/' ? (
+            <button
+              className="lg:hidden p-2 text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          ) : (
+            <button
+              onClick={() => handleNavClick('#contact')}
+              className="lg:hidden px-4 py-2 bg-[#C8102E] text-white text-[13px] font-semibold rounded transition-all duration-200 hover:bg-[#9B0E24]"
+            >
+              Contact Us
+            </button>
+          )}
         </div>
       </div>
 
