@@ -1,31 +1,47 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import heroImg from '../assets/hero.jpeg';
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden bg-[#C8102E] pt-16"
-      style={{ minHeight: '340px' }}
+      className="relative w-full overflow-hidden bg-[#C8102E]"
+      style={{ height: '100vh', minHeight: '600px' }}
     >
-      <div className="max-w-7xl mx-auto flex items-stretch w-full" style={{ minHeight: '320px' }}>
+      {/* Full-bleed flex row */}
+      <div className="flex flex-col md:flex-row items-stretch w-full h-full pt-16">
         {/* Left: Text Content */}
-        <div className="flex-1 flex flex-col justify-center px-6 md:px-10 lg:px-14 py-10 pr-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24 py-12 z-10">
+          {/* Subtle badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-            className="font-heading font-black text-white leading-tight mb-3"
-            style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6 w-fit"
           >
-            Revenue Cycle Management
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="text-white/90 text-xs font-semibold uppercase tracking-widest">
+              U.S. Healthcare RCM Experts
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-heading font-black text-white leading-[1.05] mb-5"
+            style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
+          >
+            Revenue Cycle<br />Management
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-white font-semibold text-sm md:text-base mb-4"
+            className="text-white font-semibold mb-5"
+            style={{ fontSize: 'clamp(14px, 1.4vw, 20px)' }}
           >
             End-to-End RCM Outsourcing for U.S. Healthcare Providers.
           </motion.p>
@@ -34,35 +50,64 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="space-y-2 max-w-lg"
+            className="space-y-3 max-w-xl mb-10"
           >
-            <p className="text-white/85 text-xs md:text-sm leading-relaxed">
+            <p className="text-white/80 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 16px)' }}>
               Redline Outsourcing Solutions is a dynamic Business Process Outsourcing firm
               headquartered to serve U.S. healthcare markets.
             </p>
-            <p className="text-white/85 text-xs md:text-sm leading-relaxed">
+            <p className="text-white/80 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 16px)' }}>
               Our RCM division specializes in managing the full financial lifecycle of healthcare
-              organizations, from patient eligibility verification to final reimbursement collection.
-              With a commitment to HIPAA compliance, accuracy, and measurable financial outcomes,
-              We operate as a seamless extension of your team.
+              organizations — from patient eligibility verification to final reimbursement collection.
+              HIPAA compliant, accurate, and built to be a seamless extension of your team.
             </p>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap gap-4"
+          >
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: '0 8px 28px rgba(0,0,0,0.3)' }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => {
+                const el = document.querySelector('#contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-white text-[#C8102E] font-bold px-8 py-3.5 rounded-lg text-sm tracking-wide transition-all duration-200 hover:bg-gray-50 shadow-lg"
+            >
+              Get Started Today
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => {
+                const el = document.querySelector('#solutions');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="border-2 border-white/70 text-white font-bold px-8 py-3.5 rounded-lg text-sm tracking-wide transition-all duration-200 hover:bg-white/10 backdrop-blur-sm"
+            >
+              Explore RCM Solutions
+            </motion.button>
           </motion.div>
         </div>
 
-        {/* Right: Placeholder Image with arc/curved left edge */}
+        {/* Right: Hero Image with curved left edge */}
         <motion.div
-          initial={{ opacity: 0, x: 60 }}
+          initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.65, delay: 0.25 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
           className="hidden md:flex flex-shrink-0 items-stretch relative overflow-hidden"
-          style={{ width: '44%', maxWidth: '560px' }}
+          style={{ width: '48%' }}
         >
           {/* SVG clip path for the curved left edge */}
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id="heroImageClip" clipPathUnits="objectBoundingBox">
-                {/* Left edge: arc curving inward from left, right edge flush */}
-                <path d="M0.22,0 Q0.02,0.5 0.22,1 L1,1 L1,0 Z" />
+                <path d="M0.18,0 Q-0.02,0.5 0.18,1 L1,1 L1,0 Z" />
               </clipPath>
             </defs>
           </svg>
@@ -72,20 +117,24 @@ export default function Hero() {
             className="w-full h-full relative"
             style={{ clipPath: 'url(#heroImageClip)' }}
           >
-            {/* Placeholder image — gray with label */}
-            <div className="w-full h-full bg-gray-200 flex flex-col items-center justify-center min-h-[320px]">
-              {/* Placeholder visual */}
-              <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mb-3">
-                <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <span className="text-gray-400 text-sm font-medium">Image Placeholder</span>
-              <span className="text-gray-300 text-xs mt-1">Replace with office photo</span>
-            </div>
+            <img
+              src={heroImg}
+              alt="Redline RCM team"
+              className="w-full h-full object-cover"
+            />
+            {/* Subtle dark overlay at bottom for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
           </div>
         </motion.div>
       </div>
+
+      {/* Bottom decorative wave / gradient fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, rgba(200,16,46,0.15))',
+        }}
+      />
     </section>
   );
 }

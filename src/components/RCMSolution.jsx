@@ -9,28 +9,28 @@ const solutions = [
     icon: '🏥',
   },
   {
-    title: 'Medical Coding & Documentation',
-    desc: 'Expert ICD-10, CPT, and HCPCS coding with clinical documentation improvement to maximize appropriate reimbursement.',
+    title: 'Medical Coding & Documentation(CPT/ICD-10/HCPCS)',
+    desc: 'Certified coders ensuring accurate code assignment across all specialties.',
     icon: '📋',
   },
   {
     title: 'Claims Submission & Tracking',
-    desc: 'Electronic claims submission with real-time tracking, status updates, and proactive follow-up on outstanding claims.',
+    desc: 'Clean claim scrubbing and electronic submission to all major payers',
     icon: '📤',
   },
   {
-    title: 'Denial Management',
-    desc: 'Systematic denial analysis, root cause identification, and aggressive appeals to recover denied revenue.',
+    title: 'Denial Management & Appeals',
+    desc: 'Proactive denial tracking, root-cause analysis, and timely appeals.',
     icon: '🔄',
   },
   {
     title: 'Payment Posting & Reconciliation',
-    desc: 'Accurate and timely ERA/EOB payment posting with full reconciliation and variance identification.',
+    desc: 'Accurate ERA/EOB posting with daily reconciliation for full revenue visibility.',
     icon: '💳',
   },
   {
     title: 'AR Follow-Up & Collections',
-    desc: 'Persistent accounts receivable management with prioritized follow-up to minimize days in AR.',
+    desc: 'Aggressive A/R management targeting payers and patients for maximum recovery.',
     icon: '📊',
   },
 ];
@@ -59,7 +59,7 @@ export default function RCMSolution() {
   };
 
   return (
-    <section id="solutions" className="py-24 bg-gray-50" ref={ref}>
+    <section id="solutions" className="py-14 md:py-24 bg-gray-50" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -71,7 +71,7 @@ export default function RCMSolution() {
           <span className="text-[#C8102E] font-semibold text-sm uppercase tracking-widest">
             Our Comprehensive Approach
           </span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-heading font-black text-gray-900">
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-black text-gray-900">
             RCM <span className="text-[#C8102E]">Solution</span>
           </h2>
           <p className="mt-4 text-gray-500 max-w-2xl mx-auto text-lg">

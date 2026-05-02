@@ -1,59 +1,48 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ClipboardCheck, Settings, Rocket, BarChart2 } from 'lucide-react';
 
 const phases = [
   {
     phase: '01',
-    title: 'Discovery & Assessment',
-    icon: ClipboardCheck,
+    title: 'Discovery Call',
+    day: 'DAY 1',
+    description: 'Understand your specialty, EHR systems, payer mix, and current pain points. No obligation.',
     color: '#C8102E',
-    items: [
-      'Practice workflow analysis',
-      'Current RCM audit & gap identification',
-      'Technology stack evaluation',
-      'KPI baseline establishment',
-      'Custom roadmap creation',
-    ],
   },
   {
     phase: '02',
-    title: 'Setup & Integration',
-    icon: Settings,
+    title: 'Workflow Audit',
+    day: 'DAY 2-5',
+    description: 'We analyze your existing RCM workflow, aging report, and denial patterns.',
     color: '#9B0E24',
-    items: [
-      'EHR/PM system integration',
-      'Payer credentialing verification',
-      'Team training & onboarding',
-      'Workflow customization',
-      'Data migration & validation',
-    ],
   },
   {
     phase: '03',
-    title: 'Go-Live & Launch',
-    icon: Rocket,
+    title: 'Custom Proposal',
+    day: 'DAY 5-7',
+    description: 'We analyze your existing RCM workflow, aging report, and denial patterns.',
     color: '#7A0B1C',
-    items: [
-      'Parallel billing period',
-      'Real-time monitoring setup',
-      'Dedicated support team assigned',
-      'First claims submission',
-      'Payment posting activation',
-    ],
   },
   {
     phase: '04',
-    title: 'Optimize & Scale',
-    icon: BarChart2,
+    title: 'Contract & BAA',
+    day: 'DAY 8',
+    description: 'Agreements signed including Business Associate Agreement (HIPAA BAA).',
     color: '#5C0813',
-    items: [
-      'Monthly performance reviews',
-      'Denial trend analysis',
-      'Continuous process improvement',
-      'Quarterly strategic planning',
-      'Revenue growth strategies',
-    ],
+  },
+  {
+    phase: '05',
+    title: 'System Integration',
+    day: 'DAY 9-12',
+    description: 'EHR/PM access configured, payer enrollment updated, team onboarded.',
+    color: '#3D0508',
+  },
+  {
+    phase: '06',
+    title: 'Go Live',
+    day: 'DAY 14',
+    description: 'First claims submitted. Weekly check-ins begin. 30-day pilot review scheduled.',
+    color: '#2C0306',
   },
 ];
 
@@ -62,7 +51,7 @@ export default function EngagementModel() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section className="py-24 bg-gray-900 overflow-hidden" ref={ref}>
+    <section className="relative py-14 md:py-24 bg-gray-900 overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 opacity-5"
         style={{
@@ -81,7 +70,7 @@ export default function EngagementModel() {
           <span className="text-[#C8102E] font-semibold text-sm uppercase tracking-widest">
             Our Process
           </span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-heading font-black text-white">
+          <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-black text-white">
             Engagement Model & Onboarding
           </h2>
           <p className="mt-4 text-gray-400 max-w-xl mx-auto text-lg">
@@ -90,61 +79,38 @@ export default function EngagementModel() {
         </motion.div>
 
         {/* Phases */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {phases.map((phase, i) => {
-            const Icon = phase.icon;
-            return (
-              <motion.div
-                key={phase.phase}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                whileHover={{ y: -8, boxShadow: '0 25px 60px rgba(0,0,0,0.4)' }}
-                className="group relative bg-gray-800 border border-gray-700 rounded-2xl p-6 cursor-default transition-all duration-300 hover:border-[#C8102E]/50"
-              >
-                {/* Phase number */}
-                <div
-                  className="absolute -top-4 -right-4 w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-sm shadow-lg"
-                  style={{ background: phase.color }}
-                >
-                  {phase.phase}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {phases.map((phase, i) => (
+            <motion.div
+              key={phase.phase}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              whileHover={{ y: -8, boxShadow: '0 25px 60px rgba(0,0,0,0.4)' }}
+              className="group relative bg-gray-800/50 border border-gray-700 rounded-xl p-6 cursor-default transition-all duration-300 hover:border-[#C8102E]/50"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="font-heading font-bold text-white text-lg mb-1 group-hover:text-[#E63950] transition-colors duration-300">
+                    {phase.title}
+                  </h3>
+                  <p className="text-[#C8102E] text-xs font-semibold uppercase tracking-wide">
+                    {phase.day}
+                  </p>
                 </div>
+              </div>
 
-                {/* Icon */}
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: `${phase.color}22` }}
-                >
-                  <Icon size={22} style={{ color: '#E63950' }} />
-                </div>
+              <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                {phase.description}
+              </p>
 
-                <h3 className="font-heading font-bold text-white text-base mb-4 group-hover:text-[#E63950] transition-colors duration-300">
-                  {phase.title}
-                </h3>
-
-                <ul className="space-y-2.5">
-                  {phase.items.map((item, j) => (
-                    <motion.li
-                      key={item}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ delay: 0.4 + i * 0.15 + j * 0.05 }}
-                      className="flex items-start gap-2.5 text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#C8102E] mt-2 flex-shrink-0" />
-                      {item}
-                    </motion.li>
-                  ))}
-                </ul>
-
-                {/* Bottom glow */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: `linear-gradient(90deg, transparent, ${phase.color}, transparent)` }}
-                />
-              </motion.div>
-            );
-          })}
+              {/* Bottom glow */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-1 rounded-b-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `linear-gradient(90deg, transparent, ${phase.color}, transparent)` }}
+              />
+            </motion.div>
+          ))}
         </div>
 
         {/* Timeline connector */}

@@ -73,8 +73,9 @@ export default function CTASection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-white/75 text-xl mb-10 max-w-2xl mx-auto leading-relaxed"
         >
-          Join 500+ healthcare providers who've transformed their financial performance.
-          Get a complimentary revenue cycle assessment — no commitment required.
+          Let's start with a no-obligation 30-minute revenue cycle assessment.
+          We'll identify gaps and show you exactly how we'll improve your
+          collections.
         </motion.p>
 
         <motion.div
@@ -108,7 +109,7 @@ export default function CTASection() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/50 text-sm"
         >
-          {['No setup fees', 'Cancel anytime', 'HIPAA compliant', '2-week onboarding'].map((item) => (
+          {['Dedicated Account Team', 'Full HIPAA Compliance', '2-Week Onboarding'].map((item) => (
             <div key={item} className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
               {item}

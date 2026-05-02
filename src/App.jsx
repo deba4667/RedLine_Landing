@@ -19,9 +19,9 @@ export default function App() {
         <Navbar />
         <main>
           <Hero />
-          <RevenueChallenge />
           <RCMSolution />
           <RevenueCycle />
+          <RevenueChallenge />
           <WhoWeHelp />
           <WhyChooseUs />
           <EngagementModel />

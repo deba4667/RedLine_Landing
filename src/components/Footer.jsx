@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Globe, Share2, MessageCircle, ArrowUp } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const footerLinks = {
   Services: [
@@ -39,20 +40,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-[#C8102E] rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-sm">RL</span>
-              </div>
-              <span className="text-white font-heading font-bold text-xl">Redline RCM</span>
+            <div className="flex items-center gap-2 mb-4 bg-white">
+              <img src={logo} alt="Redline Logo" />
             </div>
             <p className="text-sm leading-relaxed mb-6 text-gray-500 max-w-xs">
-              Transforming healthcare revenue cycles with expert billing, coding, and AR management solutions trusted by 500+ providers nationwide.
+              Transforming healthcare revenue cycles with expert billing, coding, and AR management solutions.
             </p>
             <div className="space-y-2.5">
               {[
-                { Icon: Phone, text: '+1 (800) 555-REDLINE' },
-                { Icon: Mail, text: 'info@redlinercm.com' },
-                { Icon: MapPin, text: 'New York, NY 10001' },
+                { Icon: Phone, text: 'US: +1 978-705-9590' },
+                { Icon: Phone, text: 'India: +91 866-050-9308 / +91 9480172919' },
+                { Icon: Mail, text: 'contact@redlineoutsourcing.com' },
+                { Icon: MapPin, text: '8 the green #2342 Dover, DE 19901, United States' },
               ].map(({ Icon, text }) => (
                 <div key={text} className="flex items-center gap-3 text-sm">
                   <Icon size={14} className="text-[#C8102E] flex-shrink-0" />

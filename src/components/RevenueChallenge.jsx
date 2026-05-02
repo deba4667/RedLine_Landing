@@ -1,253 +1,253 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
-// ── SVG canvas ──
-const W = 960;
-const H = 560;
+const CIRCLE_SIZE = 100; // all bubbles same size
+const ORBIT_R = 190;
 
-// ── Circle (shifted left so it feels anchored left like the reference) ──
-const CX = 305;
-const CY = 285;
-const CR = 210;
-
-const toRad = (deg) => (deg * Math.PI) / 180;
-
-// ── Bubble data ──
-// angle: CCW degrees from +X. sx/sy: text box origin. textAlign: 'left'|'right'
-const RAW = [
+const challenges = [
   {
     id: 'high-claim',
-    label: ['High Claim', 'Denial Rates'],
-    angle: 152,
-    size: 76,
+    label: 'High Claim\nDenial Rates',
     desc: 'Average denial rates of 5–10% leave significant revenue uncollected, straining cash flow.',
-    sx: 130, sy: 42, textWidth: 175, textAlign: 'left',
+    angle: 150,
   },
   {
-    id: 'slow-reimb',
-    label: ['Slow', 'Reimbursement', 'Cycles'],
-    angle: 65,
-    size: 86,
+    id: 'slow-reimburse',
+    label: 'Slow\nReimbursement\nCycles',
     desc: 'Manual processes cause delays of 45–90+ days from service to payment, disrupting operations.',
-    sx: 482, sy: 78, textWidth: 190, textAlign: 'left',
+    angle: 95,
   },
   {
-    id: 'coding',
-    label: ['Coding &', 'Billing', 'Errors'],
-    angle: 5,
-    size: 104,
+    id: 'coding-billing',
+    label: 'Coding &\nBilling\nErrors',
     desc: 'Incorrect CPT/ICD-10 codes are the #1 cause of claim rejections and compliance risk.',
-    sx: 634, sy: 228, textWidth: 200, textAlign: 'left',
+    angle: 35,
   },
   {
-    id: 'rising',
-    label: ['Rising', 'Overhead', 'Costs'],
-    angle: -50,
-    size: 80,
+    id: 'rising-overhead',
+    label: 'Rising\nOverhead\nCosts',
     desc: 'In-house billing teams require continuous training, technology investment, and HR overhead.',
-    sx: 538, sy: 432, textWidth: 195, textAlign: 'left',
+    angle: 345,
   },
   {
-    id: 'complex',
-    label: ['Complex', 'Payer', 'Requirements'],
-    angle: -115,
-    size: 86,
-    desc: 'Each payer has unique rules; failure to comply means rework, delays, and lost revenue.',
-    sx: 155, sy: 508, textWidth: 175, textAlign: 'left',
+    id: 'complex-payer',
+    label: 'Complex\nPayer\nRequirements',
+    desc: 'Each payer has unique rules, failure to comply means rework, delays, and lost revenue.',
+    angle: 295,
   },
   {
     id: 'hipaa',
-    label: ['HIPAA', 'Compliance', 'Burden'],
-    angle: -157,
-    size: 76,
+    label: 'HIPAA\nCompliance\nBurden',
     desc: 'Maintaining data security and regulatory compliance demands dedicated expertise.',
-    sx: 0, sy: 432, textWidth: 158, textAlign: 'left',
+    angle: 230,
   },
 ];
-
-// Compute bubble center x,y from angle
-const BUBBLES = RAW.map((b) => {
-  const rad = toRad(b.angle);
-  return { ...b, bx: CX + CR * Math.cos(rad), by: CY - CR * Math.sin(rad) };
-});
-
-// Simple word-wrap into lines
-function wrapText(text, maxChars = 26) {
-  const words = text.split(' ');
-  const lines = [];
-  let cur = '';
-  for (const w of words) {
-    const test = cur ? cur + ' ' + w : w;
-    if (test.length <= maxChars) { cur = test; }
-    else { if (cur) lines.push(cur); cur = w; }
-  }
-  if (cur) lines.push(cur);
-  return lines;
-}
 
 export default function RevenueChallenge() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
-  const [hovered, setHovered] = useState(null);
+  const [hoveredId, setHoveredId] = useState(null);
+
+  const hoveredChallenge = challenges.find((c) => c.id === hoveredId);
 
   return (
-    <section id="services" ref={ref} className="w-full bg-white" style={{ paddingTop: '48px', paddingBottom: '24px' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
-        <svg
-          viewBox={`0 0 ${W} ${H}`}
-          width="100%"
-          style={{ display: 'block', overflow: 'visible' }}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* ── Gradient defs for each bubble ── */}
-          <defs>
-            {BUBBLES.map((b) => (
-              <radialGradient key={`g-${b.id}`} id={`grad-${b.id}`} cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#E8304E" />
-                <stop offset="100%" stopColor="#880010" />
-              </radialGradient>
-            ))}
-          </defs>
+    <section id="services" className="py-20 bg-white overflow-visible" ref={ref}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
 
-          {/* ── Circle ring ── */}
-          <motion.circle
-            cx={CX} cy={CY} r={CR}
-            fill="none" stroke="#cccccc" strokeWidth="1.3"
-            initial={{ scale: 0.3, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.85, delay: 0.1, ease: 'easeOut' }}
-            style={{ transformOrigin: `${CX}px ${CY}px` }}
-          />
-
-          {/* ── "Revenue Cycle Challenge" text — always visible ── */}
-          <motion.g
-            initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.45 }}
+          {/* ── LEFT: Circle diagram ── */}
+          <div
+            className="relative flex-shrink-0 flex items-center justify-center"
+            style={{ width: '500px', height: '560px' }}
           >
-            <text x={CX - 90} y={CY - 8} fontSize="17" fontWeight="700"
-              fontFamily="Poppins, Inter, sans-serif" fill="#111827">Revenue Cycle</text>
-            <text x={CX - 90} y={CY + 30} fontSize="30" fontWeight="900"
-              fontFamily="Poppins, Inter, sans-serif" fill="#111827">Challenge</text>
-          </motion.g>
+            {/* Large circle ring */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="absolute rounded-full"
+              style={{
+                width: ORBIT_R * 2 + 20,
+                height: ORBIT_R * 2 + 20,
+                border: '1px solid #d1d5db',
+              }}
+            />
 
-          {/* ── Hover: connector line + description text ── */}
-          {BUBBLES.map((b) => {
-            const isActive = hovered === b.id;
-            const descLines = wrapText(b.desc, 26);
-            const rad = toRad(b.angle);
-            // Line starts at bubble edge, points toward text
-            const lx1 = b.bx + Math.cos(rad) * (b.size / 2);
-            const ly1 = b.by - Math.sin(rad) * (b.size / 2);
-            // Line ends near the text box
-            const lx2 = b.bx < b.sx ? b.sx : b.sx + b.textWidth;
-            const ly2 = b.sy + descLines.length * 6.5;
+            {/* Center text */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="absolute z-10 text-center"
+              style={{ width: '150px' }}
+            >
+              <p className="font-heading font-black text-gray-900 leading-tight" style={{ fontSize: '22px' }}>
+                Revenue Cycle<br />
+                <span className="text-gray-900">Challenge</span>
+              </p>
+            </motion.div>
 
-            return (
-              <AnimatePresence key={b.id + '-text'}>
-                {isActive && (
-                  <motion.g
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.22 }}
-                  >
-                    {/* Connector line */}
-                    <motion.line
-                      x1={lx1} y1={ly1} x2={lx2} y2={ly2}
-                      stroke="#C8102E" strokeWidth="1"
-                      strokeDasharray="5 3"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    {/* Description text lines */}
-                    {descLines.map((line, li) => (
-                      <motion.text
-                        key={li}
-                        x={b.sx}
-                        y={b.sy + li * 13}
-                        fontSize="10.5"
-                        fontFamily="Inter, sans-serif"
-                        fill="#1f2937"
-                        initial={{ opacity: 0, x: b.bx < b.sx ? -8 : 8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.25, delay: li * 0.04 }}
-                      >
-                        {line}
-                      </motion.text>
-                    ))}
-                  </motion.g>
-                )}
-              </AnimatePresence>
-            );
-          })}
+            {/* Bubbles */}
+            {challenges.map((item, i) => {
+              const rad = (item.angle * Math.PI) / 180;
+              const x = Math.cos(rad) * ORBIT_R;
+              const y = -Math.sin(rad) * ORBIT_R;
+              const isHovered = hoveredId === item.id;
 
-          {/* ── Bubbles ── */}
-          {BUBBLES.map((b, i) => {
-            const isActive = hovered === b.id;
-            const half = b.size / 2;
-
-            return (
-              <motion.g
-                key={b.id}
-                style={{ transformOrigin: `${b.bx}px ${b.by}px`, cursor: 'pointer' }}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.35 + i * 0.09, type: 'spring', stiffness: 130, damping: 14 }}
-                whileHover={{ scale: 1.13, transition: { type: 'spring', stiffness: 340, damping: 18 } }}
-                whileTap={{ scale: 0.93 }}
-                onHoverStart={() => setHovered(b.id)}
-                onHoverEnd={() => setHovered(null)}
-              >
-                {/* Ripple ring — only when active */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.circle
-                      cx={b.bx} cy={b.by} r={half}
-                      fill="none" stroke="rgba(200,16,46,0.5)" strokeWidth="3"
-                      initial={{ scale: 1, opacity: 0.8 }}
-                      animate={{ scale: 1.7, opacity: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.75, repeat: Infinity, ease: 'easeOut' }}
-                      style={{ transformOrigin: `${b.bx}px ${b.by}px` }}
-                    />
-                  )}
-                </AnimatePresence>
-
-                {/* Bubble fill */}
-                <circle
-                  cx={b.bx} cy={b.by}
-                  r={isActive ? half + 5 : half}
-                  fill={`url(#grad-${b.id})`}
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  animate={isInView ? { opacity: 1, scale: 1, x, y } : {}}
+                  transition={{ duration: 0.55, delay: 0.4 + i * 0.1, type: 'spring', stiffness: 90 }}
+                  className="absolute cursor-pointer"
                   style={{
-                    filter: isActive
-                      ? 'drop-shadow(0 8px 20px rgba(200,16,46,0.55))'
-                      : 'drop-shadow(0 4px 10px rgba(200,16,46,0.3))',
-                    transition: 'r 0.2s, filter 0.2s',
+                    width: CIRCLE_SIZE,
+                    height: CIRCLE_SIZE,
+                    zIndex: isHovered ? 20 : 10,
                   }}
-                />
+                  onMouseEnter={() => setHoveredId(item.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                >
+                  {/* Fluid glow ring on hover */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full"
+                    animate={
+                      isHovered
+                        ? {
+                          scale: [1, 1.35, 1.2],
+                          opacity: [0, 0.55, 0],
+                        }
+                        : { scale: 1, opacity: 0 }
+                    }
+                    transition={
+                      isHovered
+                        ? { duration: 0.9, repeat: Infinity, ease: 'easeInOut' }
+                        : { duration: 0.2 }
+                    }
+                    style={{
+                      background: 'radial-gradient(circle, rgba(200,16,46,0.5) 0%, transparent 70%)',
+                      zIndex: -1,
+                    }}
+                  />
 
-                {/* Label */}
-                {b.label.map((line, li) => (
-                  <text
-                    key={li}
-                    x={b.bx}
-                    y={b.by - ((b.label.length - 1) * 6.5) + li * 13}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fontSize="9.5"
-                    fontWeight="700"
-                    fontFamily="Inter, sans-serif"
-                    fill="white"
-                    style={{ pointerEvents: 'none', userSelect: 'none' }}
+                  {/* Main bubble */}
+                  <motion.div
+                    className="w-full h-full rounded-full flex items-center justify-center text-center shadow-lg"
+                    animate={
+                      isHovered
+                        ? {
+                          scale: 1.14,
+                          boxShadow: '0 0 28px 8px rgba(200,16,46,0.45)',
+                        }
+                        : {
+                          scale: 1,
+                          boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
+                        }
+                    }
+                    transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+                    style={{
+                      background: 'radial-gradient(circle at 35% 35%, #E03050, #9B0E24)',
+                    }}
                   >
-                    {line}
-                  </text>
-                ))}
-              </motion.g>
-            );
-          })}
-        </svg>
+                    <span
+                      className="text-white font-bold leading-tight px-2 whitespace-pre-line"
+                      style={{ fontSize: '10px' }}
+                    >
+                      {item.label}
+                    </span>
+                  </motion.div>
+
+
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* ── RIGHT: Description panel ── */}
+          <div className="flex-1 lg:pl-8 flex flex-col justify-center min-h-[260px]">
+            {/* Mobile heading */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="font-heading font-black text-gray-900 text-3xl mb-6 lg:hidden"
+            >
+              Revenue Cycle Challenge
+            </motion.h2>
+
+            {/* Default: all bullets shown when nothing hovered */}
+            <AnimatePresence mode="wait">
+              {!hoveredId ? (
+                <motion.div
+                  key="all"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 gap-5"
+                >
+                  {challenges.map((item, i) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.45, delay: 0.3 + i * 0.1 }}
+                      className="flex items-start gap-3"
+                    >
+                      <div className="mt-1.5 w-2.5 h-2.5 rounded-full bg-[#C8102E] flex-shrink-0" />
+                      <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                /* Hovered: show only the matching description, enlarged */
+                <motion.div
+                  key={hoveredId}
+                  initial={{ opacity: 0, y: 18, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -14, scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+                  className="flex flex-col gap-4"
+                >
+                  {/* Badge label */}
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="inline-flex items-center justify-center rounded-full text-white font-bold text-xs px-4 py-1.5 shadow-lg"
+                      style={{
+                        background: 'radial-gradient(circle at 35% 35%, #E03050, #9B0E24)',
+                        letterSpacing: '0.03em',
+                        whiteSpace: 'pre-line',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {hoveredChallenge?.label.replace(/\n/g, ' ')}
+                    </span>
+                    <motion.div
+                      className="h-px flex-1 bg-gradient-to-r from-[#C8102E]/40 to-transparent"
+                      initial={{ scaleX: 0, originX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                    />
+                  </div>
+
+                  {/* Description text */}
+                  <p className="text-gray-700 text-base leading-relaxed font-medium">
+                    {hoveredChallenge?.desc}
+                  </p>
+
+                  {/* Decorative bottom bar */}
+                  <motion.div
+                    className="h-0.5 w-16 rounded-full bg-[#C8102E]"
+                    initial={{ width: 0 }}
+                    animate={{ width: 64 }}
+                    transition={{ duration: 0.4, delay: 0.15 }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   );

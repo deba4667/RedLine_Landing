@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 const navLinks = [
   { label: 'RCM solution', href: '#solutions' },
@@ -34,32 +35,22 @@ export default function Navbar() {
       initial={{ y: -70, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? 'shadow-md' : 'shadow-sm'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.03 }}
-            className="flex items-center gap-2.5 cursor-pointer flex-shrink-0"
+            className="flex items-center cursor-pointer flex-shrink-0"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            {/* Circular logo mark */}
-            <div className="relative w-10 h-10 rounded-full bg-[#C8102E] flex items-center justify-center overflow-hidden border-2 border-[#C8102E]">
-              {/* Inner white circle design */}
-              <div className="absolute w-6 h-6 rounded-full bg-white/20" />
-              <span className="relative text-white font-black text-xs leading-none z-10">RL</span>
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-heading font-black text-[#C8102E] text-base tracking-wide uppercase">
-                REDLINE
-              </span>
-              <span className="text-gray-400 text-[9px] uppercase tracking-widest font-medium">
-                Outsourcing Solution
-              </span>
-            </div>
+            <img
+              src={logoImg}
+              alt="Redline Outsourcing Solution"
+              className="h-10 w-auto object-contain"
+            />
           </motion.div>
 
           {/* Desktop Nav */}
@@ -70,11 +61,10 @@ export default function Navbar() {
                 onClick={() => handleNavClick(link.href)}
                 whileHover={{ color: '#C8102E' }}
                 whileTap={{ scale: 0.95 }}
-                className={`relative px-3 py-2 text-[13px] font-medium transition-colors duration-200 rounded ${
-                  active === link.href
+                className={`relative px-3 py-2 text-[13px] font-medium transition-colors duration-200 rounded ${active === link.href
                     ? 'text-[#C8102E]'
                     : 'text-gray-600 hover:text-[#C8102E]'
-                }`}
+                  }`}
               >
                 {link.label}
                 {active === link.href && (
