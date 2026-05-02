@@ -1,9 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { FaLinkedin } from "react-icons/fa";
 import { FaPhoneSquareAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaMapPin } from "react-icons/fa";
+
+// Initialize EmailJS with public key from environment variable
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 export default function CTASection() {
   const ref = useRef(null);
@@ -15,6 +19,8 @@ export default function CTASection() {
     phone: '',
     message: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,8 +32,45 @@ export default function CTASection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    setIsLoading(true);
+    setSubmitStatus(null);
+
+    // Prepare the template parameters
+    const templateParams = {
+      to_email: 'contact@redlineoutsourcing.com',
+      from_name: formData.name,
+      from_email: formData.email,
+      company: formData.company,
+      phone: formData.phone,
+      message: formData.message,
+    };
+
+    // Send email using EmailJS with environment variables
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams
+      )
+      .then(
+        (response) => {
+          setSubmitStatus('success');
+          setFormData({
+            name: '',
+            company: '',
+            email: '',
+            phone: '',
+            message: '',
+          });
+          setTimeout(() => setSubmitStatus(null), 5000); // Clear message after 5 seconds
+        },
+        (error) => {
+          setSubmitStatus('error');
+          console.error('Failed to send email:', error);
+          setTimeout(() => setSubmitStatus(null), 5000);
+        }
+      )
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -208,10 +251,31 @@ export default function CTASection() {
 
               <button
                 type="submit"
-                className="w-full bg-[#C8102E] text-white font-bold py-3 rounded-md hover:bg-[#a00c23] transition-colors duration-300"
+                disabled={isLoading}
+                className="w-full bg-[#C8102E] text-white font-bold py-3 rounded-md hover:bg-[#a00c23] transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isLoading ? 'Sending...' : 'Send Message'}
               </button>
+
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3 bg-green-50 border border-green-200 text-green-700 rounded-md text-sm text-center"
+                >
+                  ✓ Message sent successfully! We'll get back to you soon.
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm text-center"
+                >
+                  ✗ Failed to send message. Please try again.
+                </motion.div>
+              )}
             </form>
           </motion.div>
         </div>
