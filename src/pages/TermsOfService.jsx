@@ -12,7 +12,7 @@ export default function TermsOfService() {
       <h1 className="text-4xl font-bold text-gray-900 mb-8 font-heading">Terms of Service</h1>
       <div className="prose prose-lg text-gray-600 max-w-none">
         <p className="font-semibold text-gray-900">Last Updated: April 2026</p>
-        <p>Welcome to Redline Outsourcing Solution. By using our website and services, you agree to the following terms and conditions:</p>
+        <p>Welcome to Redline Outsourcing Solutions. By using our website and services, you agree to the following terms and conditions:</p>
 
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">1. Acceptance of Terms</h2>
         <p>By accessing or using our website, you agree to be bound by these Terms of Service and our Privacy Policy.</p>

@@ -74,7 +74,7 @@ export default function Navbar() {
             <img
               src={logoImg}
               alt="Redline Outsourcing Solution"
-              className="h-10 w-auto object-contain"
+              className="h-20 w-auto object-contain mt-5"
             />
           </motion.div>
 

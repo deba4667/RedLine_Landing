@@ -26,7 +26,7 @@ export default function Footer() {
           {/* Section 1: Logo & Description */}
           <div>
             <div className="mb-6">
-              <img src={logo} alt="Redline Logo" className="h-10 w-auto" />
+              <img src={logo} alt="Redline Logo" className="h-20 w-auto" />
             </div>
             <p className="text-sm leading-relaxed mb-8 text-gray-400">
               Transforming healthcare revenue cycles with expert billing, coding, and AR management solutions.
@@ -62,6 +62,7 @@ export default function Footer() {
               {[
                 { Icon: Phone, text: 'US: +1 978-705-9590' },
                 { Icon: Phone, text: 'India: +91 866-050-9308' },
+                { Icon: Phone, text: 'India: +91 9480172919' },
                 { Icon: Mail, text: 'contact@redlineoutsourcing.com' },
                 { Icon: MapPin, text: 'Dover, DE 19901, USA' },
               ].map(({ Icon, text }) => (

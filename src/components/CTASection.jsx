@@ -87,7 +87,6 @@ export default function CTASection() {
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 20px 50px rgba(0,0,0,0.4)' }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="flex items-center gap-3 bg-white text-[#C8102E] px-10 py-4 rounded-xl font-bold text-base transition-all duration-300 hover:bg-gray-50 shadow-2xl"
           >
             Get Free Assessment
@@ -96,6 +95,7 @@ export default function CTASection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="flex items-center gap-2 border-2 border-white/40 text-white px-10 py-4 rounded-xl font-bold text-base transition-all duration-300 hover:border-white hover:bg-white/10 backdrop-blur-sm"
           >
             Schedule a Demo

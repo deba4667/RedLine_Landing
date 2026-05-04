@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
       <h1 className="text-4xl font-bold text-gray-900 mb-8 font-heading">Privacy Policy</h1>
       <div className="prose prose-lg text-gray-600 max-w-none">
         <p className="font-semibold text-gray-900">Last Updated: April 2026</p>
-        <p>At Redline Outsourcing Solution, we value your privacy. This Privacy Policy outlines how we collect, use, and protect the information you provide when you interact with our website or services.</p>
+        <p>At Redline Outsourcing Solutions, we value your privacy. This Privacy Policy outlines how we collect, use, and protect the information you provide when you interact with our website or services.</p>
 
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">1. Information We Collect</h2>
         <p>We may collect:</p>

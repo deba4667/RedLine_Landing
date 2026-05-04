@@ -4,23 +4,23 @@ import { motion, useInView } from 'framer-motion';
 const reasons = [
   {
     title: 'Dedicated Account Team',
-    desc: 'You get a dedicated Account Manager, Billing Specialist, and QA Analyst — not a rotating call center queue. One point of contact. Always.',
+    desc: 'You get a dedicated Account Manager, Billing Specialist, and QA Analyst not a rotating call center queue. One point of contact. Always.',
   },
   {
     title: 'Transparent Reporting',
-    desc: 'Weekly dashboard reviews, monthly financial reviews, and real-time access to denial trends, collection rates, and aging buckets.',
+    desc: 'Weekly dashboard reviews, monthly financial reviews, and real time access to denial trends, collection rates, and aging buckets.',
   },
   {
     title: 'HIPAA-First Culture',
-    desc: 'HIPAA compliance is embedded in every process, not bolted on. BAAs provided. All staff background-checked and annually trained.',
+    desc: 'HIPAA compliance is embedded in every process, not bolted on. BAAs provided. All staff background checked and annually trained.',
   },
   {
     title: 'No Long-Term Lock-In',
-    desc: 'Our results speak for themselves. Month-to-month contracts. Available after pilot phase.',
+    desc: 'Our results speak for themselves. Month to month contracts. Available after pilot phase.',
   },
   {
     title: 'Performance-Tied Pricing',
-    desc: 'Our fees are tied to your collections — we only win when you collect. No hidden fees. No per-claim charges.',
+    desc: 'Our fees are tied to your collections we only win when you collect. No hidden fees. No per claim charges.',
   },
   {
     title: 'Fast Onboarding — 2 Weeks',
@@ -28,7 +28,20 @@ const reasons = [
   },
   {
     title: 'EHR & PM System Compatibility',
-    desc: 'Epic    Carrier    NextGen AdvancedMD\neClincalWorks    Kareo / Tetra    etherhealth    athenahealth    Practice Fusion    Medisoft    Allscripts',
+    desc: (
+      <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-gray-600">
+        <span>Epic</span>
+        <span>Cerner</span>
+        <span>eClinicalWorks</span>
+        <span>Kareo / Tebra</span>
+        <span>athenahealth</span>
+        <span>AdvancedMD</span>
+        <span>Practice Fusion</span>
+        <span>NextGen</span>
+        <span>Medisoft</span>
+        <span>Allscripts</span>
+      </div>
+    ),
   },
   {
     title: 'Compliance & Security',
@@ -75,9 +88,9 @@ export default function WhyChooseUs() {
               <h3 className="font-heading font-bold text-gray-900 text-base mb-3 group-hover:text-[#C8102E] transition-colors duration-300">
                 {reason.title}
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
+              <div className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
                 {reason.desc}
-              </p>
+              </div>
             </motion.div>
           ))}
         </div>

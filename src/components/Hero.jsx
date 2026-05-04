@@ -6,13 +6,13 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden bg-[#C8102E]"
-      style={{ height: '100vh', minHeight: '600px' }}
+      className="relative w-full overflow-hidden bg-[#C8102E] mt-20 mb-0"
+      style={{ minHeight: '500px' }}
     >
       {/* Full-bleed flex row */}
-      <div className="flex flex-col md:flex-row items-stretch w-full h-full pt-16">
+      <div className="flex flex-col lg:flex-row items-center lg:items-stretch w-full">
         {/* Left: Text Content */}
-        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24 py-12 z-10">
+        <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 md:px-16 lg:px-24 py-12 lg:py-16 z-10">
           {/* Subtle badge */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -30,8 +30,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading font-black text-white leading-[1.05] mb-5"
-            style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
+            className="font-heading font-black text-white leading-[1.1] mb-6"
+            style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}
           >
             Revenue Cycle<br />Management
           </motion.h1>
@@ -40,8 +40,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-white font-semibold mb-5"
-            style={{ fontSize: 'clamp(14px, 1.4vw, 20px)' }}
+            className="text-white font-semibold mb-6"
+            style={{ fontSize: 'clamp(16px, 1.5vw, 20px)' }}
           >
             End-to-End RCM Outsourcing for U.S. Healthcare Providers.
           </motion.p>
@@ -50,15 +50,15 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="space-y-3 max-w-xl mb-10"
+            className="space-y-4 max-w-2xl mb-10"
           >
-            <p className="text-white/80 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 16px)' }}>
+            <p className="text-white/85 leading-relaxed text-base">
               Redline Outsourcing Solutions is a dynamic Business Process Outsourcing firm
               headquartered to serve U.S. healthcare markets.
             </p>
-            <p className="text-white/80 leading-relaxed" style={{ fontSize: 'clamp(13px, 1.1vw, 16px)' }}>
+            <p className="text-white/85 leading-relaxed text-base">
               Our RCM division specializes in managing the full financial lifecycle of healthcare
-              organizations — from patient eligibility verification to final reimbursement collection.
+              organizations from patient eligibility verification to final reimbursement collection.
               HIPAA compliant, accurate, and built to be a seamless extension of your team.
             </p>
           </motion.div>
@@ -68,7 +68,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-col sm:flex-row gap-4"
           >
             <motion.button
               whileHover={{ scale: 1.04, boxShadow: '0 8px 28px rgba(0,0,0,0.3)' }}
@@ -77,7 +77,7 @@ export default function Hero() {
                 const el = document.querySelector('#contact');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="bg-white text-[#C8102E] font-bold px-8 py-3.5 rounded-lg text-sm tracking-wide transition-all duration-200 hover:bg-gray-50 shadow-lg"
+              className="bg-white text-[#C8102E] font-bold px-8 py-3.5 rounded-lg text-base tracking-wide transition-all duration-200 hover:bg-gray-50 shadow-lg w-fit"
             >
               Get Started Today
             </motion.button>
@@ -88,7 +88,7 @@ export default function Hero() {
                 const el = document.querySelector('#solutions');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="border-2 border-white/70 text-white font-bold px-8 py-3.5 rounded-lg text-sm tracking-wide transition-all duration-200 hover:bg-white/10 backdrop-blur-sm"
+              className="border-2 border-white/70 text-white font-bold px-8 py-3.5 rounded-lg text-base tracking-wide transition-all duration-200 hover:bg-white/10 backdrop-blur-sm w-fit"
             >
               Explore RCM Solutions
             </motion.button>
@@ -100,21 +100,20 @@ export default function Hero() {
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="hidden md:flex flex-shrink-0 items-stretch relative overflow-hidden"
-          style={{ width: '48%' }}
+          className="hidden lg:flex lg:flex-shrink-0 items-stretch relative overflow-hidden lg:w-1/2 lg:min-h-[500px]"
         >
           {/* SVG clip path for the curved left edge */}
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id="heroImageClip" clipPathUnits="objectBoundingBox">
-                <path d="M0.18,0 Q-0.02,0.5 0.18,1 L1,1 L1,0 Z" />
+                <path d="M0.3,0 Q-0.15,0.5 0.3,1 L1,1 L1,0 Z" />
               </clipPath>
             </defs>
           </svg>
 
           {/* Image container */}
           <div
-            className="w-full h-full relative"
+            className="w-full relative overflow-hidden"
             style={{ clipPath: 'url(#heroImageClip)' }}
           >
             <img

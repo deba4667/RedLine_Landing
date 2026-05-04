@@ -11,7 +11,7 @@ export default function AboutUs() {
     >
       <h1 className="text-4xl font-bold text-gray-900 mb-8 font-heading">About Us</h1>
       <div className="prose prose-lg text-gray-600 mb-12 max-w-none">
-        <p>At Redline Outsourcing Solution, we're more than just a voice support provider. We're the human connection behind every customer conversation.</p>
+        <p>At Redline Outsourcing Solutions, we're more than just a voice support provider. We're the human connection behind every customer conversation.</p>
         <p>Founded with a mission to deliver empathetic, reliable, and industry focused support, Redline specializes in serving insurance, pension, and healthcare companies that value clarity, care, and trust.</p>
         <p>Our team of trained voice agents understands that every call isn't just a task it's an opportunity to reassure, resolve, and retain.</p>
         <p className="font-bold text-gray-900">We operate with one belief at the core: Great support starts with people who care.</p>

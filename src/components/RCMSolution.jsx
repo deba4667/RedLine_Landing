@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, TrendingUp } from 'lucide-react';
 
 const solutions = [
   {
@@ -31,7 +31,7 @@ const solutions = [
   {
     title: 'AR Follow-Up & Collections',
     desc: 'Aggressive A/R management targeting payers and patients for maximum recovery.',
-    icon: '📊',
+    icon: <TrendingUp size={24} />,
   },
 ];
 
@@ -118,7 +118,11 @@ export default function RCMSolution() {
               {/* Icon strip */}
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:bg-[#C8102E] transition-colors duration-300">
-                  <span className="group-hover:grayscale-0">{sol.icon}</span>
+                  {typeof sol.icon === 'string' ? (
+                    <span className="group-hover:grayscale-0">{sol.icon}</span>
+                  ) : (
+                    <span className="text-[#C8102E] group-hover:text-white transition-colors duration-300">{sol.icon}</span>
+                  )}
                 </div>
                 <div className="flex-1">
                   <h3 className="font-heading font-bold text-gray-900 text-base leading-tight group-hover:text-[#C8102E] transition-colors duration-300">

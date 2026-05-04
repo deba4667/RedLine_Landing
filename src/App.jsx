@@ -25,10 +25,10 @@ function Home() {
     <main>
       <Hero />
       <RCMSolution />
-      <RevenueCycle />
-      <RevenueChallenge />
       <WhoWeHelp />
       <WhyChooseUs />
+      <RevenueCycle />
+      <RevenueChallenge />
       <EngagementModel />
       <CTASection />
       <Contact />

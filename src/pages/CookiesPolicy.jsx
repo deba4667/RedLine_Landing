@@ -12,7 +12,7 @@ export default function CookiesPolicy() {
       <h1 className="text-4xl font-bold text-gray-900 mb-8 font-heading">Cookies Policy</h1>
       <div className="prose prose-lg text-gray-600 max-w-none">
         <p className="font-semibold text-gray-900">Last Updated: April 2026</p>
-        <p>Redline Outsourcing Solution uses cookies to improve user experience, analyze site traffic, and deliver better service.</p>
+        <p>Redline Outsourcing Solutions uses cookies to improve user experience, analyze site traffic, and deliver better service.</p>
 
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">1. What Are Cookies?</h2>
         <p>Cookies are small data files stored on your device when you visit a website. They help websites remember your preferences and activity.</p>
