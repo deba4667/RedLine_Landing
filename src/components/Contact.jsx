@@ -37,7 +37,7 @@ export default function CTASection() {
 
     // Prepare the template parameters
     const templateParams = {
-      to_email: 'contact@redlineoutsourcing.com',
+      to_email: 'sujith@redlineoutsourcing.com',
       from_name: formData.name,
       from_email: formData.email,
       company: formData.company,
