@@ -20,7 +20,7 @@ const phases = [
     phase: '03',
     title: 'Custom Proposal',
     day: 'DAY 5-7',
-    description: 'We analyze your existing RCM workflow, aging report, and denial patterns.',
+    description: 'Tailored engagement plan with KPI targets, team structure, and SLAs delivered.',
     color: '#7A0B1C',
   },
   {
